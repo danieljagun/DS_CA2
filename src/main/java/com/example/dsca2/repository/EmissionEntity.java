@@ -10,18 +10,19 @@ public class EmissionEntity {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private String emissionID;
+    private Long emissionID;
 
     private String category;
     private int year;
     private String scenario;
     private String gasUnits;
-    private double value;
+    private String value;
 
     public EmissionEntity() {
     }
 
-    public EmissionEntity(String emissionID, String category, int year, String scenario, String gasUnits, double value) {
+
+    public EmissionEntity(Long emissionID, String category, int year, String scenario, String gasUnits, String value) {
         this.emissionID = emissionID;
         this.category = category;
         this.year = year;
@@ -30,11 +31,11 @@ public class EmissionEntity {
         this.value = value;
     }
 
-    public String getEmissionID() {
+    public Long getEmissionID() {
         return emissionID;
     }
 
-    public void setEmissionID(String emissionID) {
+    public void setEmissionID(Long emissionID) {
         this.emissionID = emissionID;
     }
 
@@ -70,11 +71,11 @@ public class EmissionEntity {
         this.gasUnits = gasUnits;
     }
 
-    public double getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
