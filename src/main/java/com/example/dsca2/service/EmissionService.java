@@ -1,14 +1,14 @@
 package com.example.dsca2.service;
 
-import com.example.dsca2.Emission;
+import com.example.dsca2.PredictedEmission;
 
 public interface EmissionService {
 
-    Long createEmission(Emission emission);
+    Long createEmission(PredictedEmission predictedEmission);
 
-    Emission getEmission(String emissionID);
+    PredictedEmission getEmission(String emissionID);
 
-    Emission updateEmission(Emission updatedEmission);
+    PredictedEmission updateEmission(PredictedEmission updatedPredictedEmission);
 
     void deleteEmission(String emissionID);
 }

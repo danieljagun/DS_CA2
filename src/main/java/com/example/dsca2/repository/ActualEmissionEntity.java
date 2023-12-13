@@ -1,19 +1,25 @@
-package com.example.dsca2;
+package com.example.dsca2.repository;
 
-public class Emission {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "actualEmissions")
+public class ActualEmissionEntity {
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long emissionID;
+
     private String category;
-    private int year;
-    private String scenario;
     private String gasUnits;
     private String value;
 
-    public Emission(Long emissionID, String category, int year, String scenario, String gasUnits, String value) {
+    public ActualEmissionEntity() {
+    }
+
+    public ActualEmissionEntity(Long emissionID, String category, String gasUnits, String value) {
         this.emissionID = emissionID;
         this.category = category;
-        this.year = year;
-        this.scenario = scenario;
         this.gasUnits = gasUnits;
         this.value = value;
     }
@@ -34,22 +40,6 @@ public class Emission {
         this.category = category;
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public String getScenario() {
-        return scenario;
-    }
-
-    public void setScenario(String scenario) {
-        this.scenario = scenario;
-    }
-
     public String getGasUnits() {
         return gasUnits;
     }
@@ -68,13 +58,11 @@ public class Emission {
 
     @Override
     public String toString() {
-        return "Emission{" +
-                "emissionID='" + emissionID + '\'' +
+        return "ActualEmissionEntity{" +
+                "emissionID=" + emissionID +
                 ", category='" + category + '\'' +
-                ", year=" + year +
-                ", scenario='" + scenario + '\'' +
                 ", gasUnits='" + gasUnits + '\'' +
-                ", value=" + value +
+                ", value='" + value + '\'' +
                 '}';
     }
 }

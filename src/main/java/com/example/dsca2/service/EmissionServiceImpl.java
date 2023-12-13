@@ -1,29 +1,28 @@
 package com.example.dsca2.service;
 
-import com.example.dsca2.Emission;
-import com.example.dsca2.repository.EmissionEntity;
-import com.example.dsca2.repository.EmissionRepository;
+import com.example.dsca2.PredictedEmission;
+import com.example.dsca2.repository.PredictedEmissionRepository;
 
 public class EmissionServiceImpl implements EmissionService {
 
-    private final EmissionRepository emissionRepository;
+    private final PredictedEmissionRepository predictedEmissionRepository;
 
-    public EmissionServiceImpl(EmissionRepository emissionRepository) {
-        this.emissionRepository = emissionRepository;
+    public EmissionServiceImpl(PredictedEmissionRepository predictedEmissionRepository) {
+        this.predictedEmissionRepository = predictedEmissionRepository;
     }
 
     @Override
-    public Long createEmission(Emission emission) {
+    public Long createEmission(PredictedEmission predictedEmission) {
         return null;
     }
 
     @Override
-    public Emission getEmission(String emissionID) {
+    public PredictedEmission getEmission(String emissionID) {
         return null;
     }
 
     @Override
-    public Emission updateEmission(Emission updatedEmission) {
+    public PredictedEmission updateEmission(PredictedEmission updatedPredictedEmission) {
         return null;
     }
 
