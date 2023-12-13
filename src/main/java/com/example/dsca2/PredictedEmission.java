@@ -1,28 +1,15 @@
-package com.example.dsca2.repository;
+package com.example.dsca2;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+public class PredictedEmission {
 
-@Entity
-public class EmissionEntity {
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long emissionID;
-
     private String category;
     private int year;
     private String scenario;
     private String gasUnits;
     private String value;
 
-    public EmissionEntity() {
-    }
-
-
-    public EmissionEntity(Long emissionID, String category, int year, String scenario, String gasUnits, String value) {
+    public PredictedEmission(Long emissionID, String category, int year, String scenario, String gasUnits, String value) {
         this.emissionID = emissionID;
         this.category = category;
         this.year = year;
@@ -81,7 +68,7 @@ public class EmissionEntity {
 
     @Override
     public String toString() {
-        return "EmissionEntity{" +
+        return "Emission{" +
                 "emissionID='" + emissionID + '\'' +
                 ", category='" + category + '\'' +
                 ", year=" + year +

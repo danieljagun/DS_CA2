@@ -9,8 +9,6 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 public class Dsca2Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Dsca2Application.class, args)
-                .getBean(ParseEmission.class).parseEmissionData();
-
+        SpringApplication.run(Dsca2Application.class, args);
     }
 }
