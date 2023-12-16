@@ -4,21 +4,21 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class User {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long userID;
 
-    private String user;
+    private String name;
     private String password;
 
-    public UserEntity() {
+    public User() {
     }
 
-    public UserEntity(Long userID, String user, String password) {
+    public User(Long userID, String name, String password) {
         this.userID = userID;
-        this.user = user;
+        this.name = name;
         this.password = password;
     }
 
@@ -26,8 +26,8 @@ public class UserEntity {
         return userID;
     }
 
-    public String getUser() {
-        return user;
+    public String getName() {
+        return name;
     }
 
     public String getPassword() {
@@ -39,8 +39,8 @@ public class UserEntity {
     }
 
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setPassword(String password) {
@@ -51,7 +51,7 @@ public class UserEntity {
     public String toString() {
         return "UserEntity{" +
                 "userID='" + userID + '\'' +
-                ", user='" + user + '\'' +
+                ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

@@ -1,8 +1,8 @@
 package com.example.dsca2.service;
 
-import com.example.dsca2.repository.ActualEmissionEntity;
+import com.example.dsca2.repository.ActualEmission;
 import com.example.dsca2.repository.ActualEmissionRepository;
-import com.example.dsca2.repository.PredictedEmissionEntity;
+import com.example.dsca2.repository.PredictedEmission;
 import com.example.dsca2.repository.PredictedEmissionRepository;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -58,14 +58,14 @@ public class ParsingServiceImpl implements ParsingService {
                 if (!valueStr.isEmpty() && !valueStr.equals("0")) {
                     if (year == 2023 && scenario.equals("WEM")) {
 
-                        PredictedEmissionEntity predictedEmissionEntity = new PredictedEmissionEntity();
-                        predictedEmissionEntity.setCategory(category);
-                        predictedEmissionEntity.setYear(year);
-                        predictedEmissionEntity.setScenario(scenario);
-                        predictedEmissionEntity.setGasUnits(gasUnits);
-                        predictedEmissionEntity.setValue(valueStr);
+                        PredictedEmission predictedEmission = new PredictedEmission();
+                        predictedEmission.setCategory(category);
+                        predictedEmission.setYear(year);
+                        predictedEmission.setScenario(scenario);
+                        predictedEmission.setGasUnits(gasUnits);
+                        predictedEmission.setValue(valueStr);
 
-                        predictedEmissionRepository.save(predictedEmissionEntity);
+                        predictedEmissionRepository.save(predictedEmission);
 
                         validEmissionCount++;
                     }
@@ -90,11 +90,9 @@ public class ParsingServiceImpl implements ParsingService {
                 jsonString.append(scanner.nextLine());
             }
 
-            // What that "file" looks like as a String
             System.out.println("JSON from file as a String:");
             System.out.println(jsonString);
 
-            // Parse the JSON string
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(jsonString.toString());
             System.out.println("\nParsed JSON:");
@@ -103,7 +101,6 @@ public class ParsingServiceImpl implements ParsingService {
             if (jsonObject.containsKey("Emissions")) {
                 JSONArray emissionsArray = (JSONArray) jsonObject.get("Emissions");
 
-                // Iterate through emissions data
                 for (Object emissionObj : emissionsArray) {
                     JSONObject emission = (JSONObject) emissionObj;
 
@@ -111,16 +108,14 @@ public class ParsingServiceImpl implements ParsingService {
                     String gasUnits = (String) emission.get("Gas Units");
                     Number value = (Number) emission.get("Value");
 
-                    // Assuming value is always a Long or Double
                     String valueStr = String.valueOf(value);
 
-                    // Save data to the database
-                    ActualEmissionEntity actualEmissionEntity = new ActualEmissionEntity();
-                    actualEmissionEntity.setCategory(category);
-                    actualEmissionEntity.setGasUnits(gasUnits);
-                    actualEmissionEntity.setValue(valueStr);
+                    ActualEmission actualEmission = new ActualEmission();
+                    actualEmission.setCategory(category);
+                    actualEmission.setGasUnits(gasUnits);
+                    actualEmission.setValue(valueStr);
 
-                    actualEmissionRepository.save(actualEmissionEntity);
+                    actualEmissionRepository.save(actualEmission);
 
                 }
             } else {
