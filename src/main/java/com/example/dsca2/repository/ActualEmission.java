@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "actualEmissions")
-public class ActualEmissionEntity {
+public class ActualEmission {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -14,10 +14,11 @@ public class ActualEmissionEntity {
     private String gasUnits;
     private String value;
 
-    public ActualEmissionEntity() {
+    public ActualEmission() {
+
     }
 
-    public ActualEmissionEntity(Long emissionID, String category, String gasUnits, String value) {
+    public ActualEmission(Long emissionID, String category, String gasUnits, String value) {
         this.emissionID = emissionID;
         this.category = category;
         this.gasUnits = gasUnits;
@@ -58,7 +59,7 @@ public class ActualEmissionEntity {
 
     @Override
     public String toString() {
-        return "ActualEmissionEntity{" +
+        return "ActualEmission{" +
                 "emissionID=" + emissionID +
                 ", category='" + category + '\'' +
                 ", gasUnits='" + gasUnits + '\'' +
@@ -66,3 +67,5 @@ public class ActualEmissionEntity {
                 '}';
     }
 }
+
+

@@ -2,6 +2,6 @@ package com.example.dsca2.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PredictedEmissionRepository extends JpaRepository<PredictedEmission, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 }
