@@ -1,6 +1,8 @@
 package com.example.dsca2;
 
+import com.example.dsca2.repository.ActualEmission;
 import com.example.dsca2.repository.User;
+import com.example.dsca2.service.ActualEmissionService;
 import com.example.dsca2.service.ParsingService;
 import com.example.dsca2.service.UserService;
 import org.slf4j.Logger;
@@ -17,10 +19,12 @@ public class AppController {
 
     private final ParsingService parsingService;
     private final UserService userService;
+    private final ActualEmissionService actualEmissionService;
 
-    public AppController(ParsingService parsingService, UserService userService) {
+    public AppController(ParsingService parsingService, UserService userService, ActualEmissionService actualEmissionService) {
         this.parsingService = parsingService;
         this.userService = userService;
+        this.actualEmissionService = actualEmissionService;
     }
 
     @GetMapping("/parse-xml")
@@ -76,4 +80,47 @@ public class AppController {
         logger.info("Deleted user with ID: {}", userID);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping("/actual-emissions")
+    public ResponseEntity<ActualEmission> createActualEmission(@RequestBody ActualEmission actualEmission) {
+        logger.info("Received request to create Actual Emission: {}", actualEmission);
+        Long emissionID = actualEmissionService.createActualEmission(actualEmission);
+        logger.info("Created actual emission with ID: {}", emissionID);
+        return ResponseEntity.ok().body(actualEmission);
+    }
+
+    @GetMapping("/actual-emissions/{emissionID}")
+    public ResponseEntity<ActualEmission> getActualEmission(@PathVariable Long emissionID) {
+        logger.info("Received request to get Actual Emission with ID: {}", emissionID);
+        ActualEmission actualEmission = actualEmissionService.getActualEmission(emissionID);
+        if (actualEmission != null) {
+            logger.info("Retrieved actual emission with ID: {}", actualEmission.getEmissionID());
+            return ResponseEntity.ok().body(actualEmission);
+        } else {
+            logger.info("Actual Emission with ID {} not found", emissionID);
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PutMapping("/actual-emissions/update/{emissionID}")
+    public ResponseEntity<ActualEmission> updateActualEmission(@PathVariable Long emissionID, @RequestBody ActualEmission updatedActual) {
+        logger.info("Received request to update Actual Emission with ID: {}", emissionID);
+        ActualEmission actualEmission = actualEmissionService.updateActualEmission(emissionID, updatedActual);
+        if (actualEmission != null) {
+            logger.info("Updated actual emission with ID: {}", actualEmission.getEmissionID());
+            return ResponseEntity.ok().body(actualEmission);
+        } else {
+            logger.info("Actual Emission with ID {} not found", emissionID);
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/actual-emissions/delete/{emissionID}")
+    public ResponseEntity<Void> deleteActualEmission(@PathVariable Long emissionID) {
+        logger.info("Received request to delete Actual Emission with ID: {}", emissionID);
+        actualEmissionService.deleteActualEmission(emissionID);
+        logger.info("Deleted actual emission with ID: {}", emissionID);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

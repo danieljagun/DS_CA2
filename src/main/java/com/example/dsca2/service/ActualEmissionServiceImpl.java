@@ -1,35 +1,71 @@
 package com.example.dsca2.service;
 
 import com.example.dsca2.repository.ActualEmission;
-import com.example.dsca2.repository.PredictedEmissionRepository;
+import com.example.dsca2.repository.ActualEmissionRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
+@Service
 public class ActualEmissionServiceImpl implements ActualEmissionService {
 
-    private final PredictedEmissionRepository predictedEmissionRepository;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public ActualEmissionServiceImpl(PredictedEmissionRepository predictedEmissionRepository) {
-        this.predictedEmissionRepository = predictedEmissionRepository;
-    }
+    private final ActualEmissionRepository actualEmissionRepository;
 
-
-    @Override
-    public Long createEmission(ActualEmission actualEmission) {
-        return null;
+    public ActualEmissionServiceImpl(ActualEmissionRepository actualEmissionRepository) {
+        this.actualEmissionRepository = actualEmissionRepository;
     }
 
     @Override
-    public ActualEmission getEmission(Long emissionID) {
-        return null;
+    public Long createActualEmission(ActualEmission actualEmission) {
+        ActualEmission newActualEmission = actualEmissionRepository.save(actualEmission);
+        logger.info("Created new emission with ID: {}", newActualEmission.getEmissionID());
+        return newActualEmission.getEmissionID();
     }
 
     @Override
-    public ActualEmission updateEmission(ActualEmission updatedActual) {
-        return null;
+    public ActualEmission getActualEmission(Long emissionID) {
+        Optional<ActualEmission> actualEmissionOptional = actualEmissionRepository.findById(emissionID);
+        if (actualEmissionOptional.isPresent()) {
+            ActualEmission actualEmission = actualEmissionOptional.get();
+            logger.info("Retrieved emission with ID: {}", actualEmission.getEmissionID());
+            return actualEmission;
+        } else {
+            logger.info("Emission with ID {} not found", emissionID);
+            return null;
+        }
     }
 
     @Override
-    public void deleteEmission(Long emissionID) {
+    public ActualEmission updateActualEmission(Long emissionID, ActualEmission updatedActual) {
+        Optional<ActualEmission> actualEmissionOptional = actualEmissionRepository.findById(emissionID);
+        if (actualEmissionOptional.isPresent()) {
+            ActualEmission actualEmission = actualEmissionOptional.get();
+            actualEmission.setCategory(updatedActual.getCategory());
+            actualEmission.setGasUnits(updatedActual.getGasUnits());
+            actualEmission.setValue(updatedActual.getValue());
 
+            ActualEmission savedActualEmission = actualEmissionRepository.save(actualEmission);
+            logger.info("Updated emission with ID: {}", savedActualEmission.getEmissionID());
+            return savedActualEmission;
+        } else {
+            logger.info("Emission with ID {} not found", emissionID);
+            return null;
+        }
+    }
+
+    @Override
+    public void deleteActualEmission(Long emissionID) {
+        Optional<ActualEmission> actualEmissionOptional = actualEmissionRepository.findById(emissionID);
+        if (actualEmissionOptional.isPresent()) {
+            actualEmissionRepository.deleteById(emissionID);
+            logger.info("Deleted emission with ID: {}", emissionID);
+        } else {
+            logger.info("Emission with ID {} not found, deletion failed.", emissionID);
+        }
     }
 }
 
