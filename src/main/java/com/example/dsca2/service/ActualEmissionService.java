@@ -4,12 +4,12 @@ import com.example.dsca2.repository.ActualEmission;
 
 public interface ActualEmissionService {
 
-    Long createEmission(ActualEmission actualEmission);
+    Long createActualEmission(ActualEmission actualEmission);
 
-    ActualEmission getEmission(Long emissionID);
+    ActualEmission getActualEmission(Long emissionID);
 
-    ActualEmission updateEmission(ActualEmission updatedActual);
+    ActualEmission updateActualEmission(Long emissionID, ActualEmission updatedActual);
 
-    void deleteEmission(Long emissionID);
+    void deleteActualEmission(Long emissionID);
 }
 
