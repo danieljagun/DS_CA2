@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -66,6 +67,28 @@ public class ActualEmissionServiceImpl implements ActualEmissionService {
         } else {
             logger.info("Emission with ID {} not found, deletion failed.", emissionID);
         }
+    }
+
+    @Override
+    public List<ActualEmission> getAllActualEmissions() {
+        List<ActualEmission> allActualEmissions = actualEmissionRepository.findAll();
+        if (!allActualEmissions.isEmpty()) {
+            logger.info("Retrieved {} actual emissions", allActualEmissions.size());
+        } else {
+            logger.info("No actual emissions found");
+        }
+        return allActualEmissions;
+    }
+
+    @Override
+    public List<ActualEmission> getActualEmissionsByCategory(String category) {
+        List<ActualEmission> emissionsByCategory = actualEmissionRepository.findByCategory(category);
+        if (!emissionsByCategory.isEmpty()) {
+            logger.info("Retrieved {} actual emissions for category: {}", emissionsByCategory.size(), category);
+        } else {
+            logger.info("No actual emissions found for category: {}", category);
+        }
+        return emissionsByCategory;
     }
 }
 
