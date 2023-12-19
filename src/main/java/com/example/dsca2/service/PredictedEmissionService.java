@@ -2,13 +2,19 @@ package com.example.dsca2.service;
 
 import com.example.dsca2.repository.PredictedEmission;
 
+import java.util.List;
+
 public interface PredictedEmissionService {
 
-    Long createEmission(PredictedEmission predictedEmission);
+    Long createPredictedEmission(PredictedEmission predictedEmission);
 
-    PredictedEmission getEmission(Long emissionID);
+    PredictedEmission getPredictedEmission(Long emissionID);
 
-    PredictedEmission updateEmission(PredictedEmission updatedPredicted);
+    PredictedEmission updatePredictedEmission(Long emissionID, PredictedEmission updatedPredicted);
 
-    void deleteEmission(Long emissionID);
+    void deletePredictedEmission(Long emissionID);
+
+    List<PredictedEmission> getAllPredictedEmissions();
+
+    List<PredictedEmission> getPredictedEmissionsByCategory(String category);
 }

@@ -72,7 +72,7 @@ public class ParsingServiceImpl implements ParsingService {
                 }
             }
 
-            System.out.println("Total valid emissions: " + validEmissionCount);
+            System.out.println("Total emissions: " + validEmissionCount);
 
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
@@ -119,7 +119,7 @@ public class ParsingServiceImpl implements ParsingService {
 
                 }
             } else {
-                System.out.println("File doesn't contain 'Emissions' data.");
+                System.out.println("Emissions data not found, check file.");
             }
         } catch (FileNotFoundException | ParseException e) {
             e.printStackTrace();

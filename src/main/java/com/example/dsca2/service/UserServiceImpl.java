@@ -28,6 +28,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public User getUserByName(String name) {
+        return userRepository.findByName(name);
+    }
+
+    @Override
     public User getUser(Long userID) {
         Optional<User> userOptional = userRepository.findById(userID);
         if (userOptional.isPresent()) {
@@ -40,7 +45,6 @@ public class UserServiceImpl implements UserService{
         }
     }
 
-
     @Override
     public User updateUser(Long userID, User updatedUser) {
         Optional<User> userOptional = userRepository.findById(userID);
@@ -50,8 +54,13 @@ public class UserServiceImpl implements UserService{
             user.setPassword(updatedUser.getPassword());
 
             User savedUser = userRepository.save(user);
-            logger.info("Updated user with ID: {}", savedUser.getUserID());
-            return savedUser;
+            if (savedUser != null) {
+                logger.info("Updated user with ID: {}", savedUser.getUserID());
+                return savedUser;
+            } else {
+                logger.error("Failed to update user with ID: {}", userID);
+                return null;
+            }
         } else {
             logger.info("User with ID {} not found", userID);
             return null;
